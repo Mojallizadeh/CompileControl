@@ -1,3 +1,8 @@
+This project is cloned from the following directry and is adapted for the test tank developments in Nantes
+
+https://github.com/TUDelft-DataDrivenControl/WaveFFControl
+
+
 # WaveFFControl
 Wave feedforward control input files for NREL 5MW on top of the OC3 floating platform in the above-rated region. So, only the blade pitch controller is included.
 
