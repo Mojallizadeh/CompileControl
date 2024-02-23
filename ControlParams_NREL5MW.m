@@ -25,6 +25,7 @@ Control.Pitch.PC_MaxRat         =       0.1396263;              % Maximum pitch 
 Control.Pitch.PC_MinPit         =       0.0;                    % Minimum pitch setting in pitch controller, (rad).  
 Control.Pitch.PC_RefSpd         =       122.9096;               % Desired (reference) HSS speed for pitch controller, (rad/s).
 
+
 %% Variable Speed Torque Control Parameters
 Control.Torque.SigSmoother      =       1/20e-3;                % A constant used to smoothen the disctrete generator torque signal 
 Control.Torque.GenEffec         =       0.944;                  % Generator efficiency
@@ -40,22 +41,22 @@ Control.Torque.VS_RtPwr         =       5296610.0;              % Rated generato
 Control.Torque.VS_SlPc          =       10.0;                   % Rated generator slip percentage in Region 2 1/2.
 
 %% FF Controller
-Control.GainKff                 = Kff_gain;                     
-
-load('NREL5MW_LinModel_Surge_Pitch_DOFs.mat')
-
-Gd_Fwave                        = c2d(LinModel('omega_r','F_{hydro}'),Control.TimeStep,'tustin');  
-Gd_Mwave                        = c2d(LinModel('omega_r','M_{hydro}'),Control.TimeStep,'tustin');  
-Gp                              = c2d(LinModel('omega_r','beta_c'),Control.TimeStep,'tustin');  
-InvGp                           = inv(Gp);
-
-s=tf('s');
-omega                           = 0.208;
-beta                            = 0.02;
-beta2                           = 0.2;
-notch                           = (s^2 + 2*omega*beta*s + omega^2)/(s^2 + 2*omega*beta2*s +omega^2);
-%Notch                           = (s^2 + 2*Wnotch*beta*s + Wnotch^2)/(s^2 + 2*Wnotch*beta2*s +Wnotch^2);
-InvGp                           = InvGp*c2d(notch,Control.TimeStep,'tustin');
-
-%% Gain Scheduling
-Control.GainDiff = [0.155706084411910	1.01479542958865	1.24691665562030	1.19371273878682	1.08653882075962	1	0.927495080847099	0.867510961867667	0.821129014793288	0.775416430688680	0.729995289892292	0.699554400897096	0.672064849124065	0.647786329534846	0.626659315021524];
+% Control.GainKff                 = Kff_gain;                     
+% 
+% load('NREL5MW_LinModel_Surge_Pitch_DOFs.mat')
+% 
+% Gd_Fwave                        = c2d(LinModel('omega_r','F_{hydro}'),Control.TimeStep,'tustin');  
+% Gd_Mwave                        = c2d(LinModel('omega_r','M_{hydro}'),Control.TimeStep,'tustin');  
+% Gp                              = c2d(LinModel('omega_r','beta_c'),Control.TimeStep,'tustin');  
+% InvGp                           = inv(Gp);
+% 
+% s=tf('s');
+% omega                           = 0.208;
+% beta                            = 0.02;
+% beta2                           = 0.2;
+% notch                           = (s^2 + 2*omega*beta*s + omega^2)/(s^2 + 2*omega*beta2*s +omega^2);
+% %Notch                           = (s^2 + 2*Wnotch*beta*s + Wnotch^2)/(s^2 + 2*Wnotch*beta2*s +Wnotch^2);
+% InvGp                           = InvGp*c2d(notch,Control.TimeStep,'tustin');
+% 
+% %% Gain Scheduling
+% Control.GainDiff = [0.155706084411910	1.01479542958865	1.24691665562030	1.19371273878682	1.08653882075962	1	0.927495080847099	0.867510961867667	0.821129014793288	0.775416430688680	0.729995289892292	0.699554400897096	0.672064849124065	0.647786329534846	0.626659315021524];
